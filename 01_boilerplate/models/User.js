@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 // salt가 몇글자인지
 const saltRounds = 10;
 
@@ -37,7 +39,7 @@ const userSchema = mongoose.Schema({
 // 데이터 저장 전에 비밀번호 암호화 시키기
 userSchema.pre('save', function (next) {
   //         👇 function 키워드로 선언했으므로 userSchema에 바인딩
-  let user = this;
+  const user = this;
   // 👇 비밀번호가 추가/변경 되었을 때만 실행
   if (user.isModified('password')) {
     bcrypt.genSalt(saltRounds, function (err, salt) {
@@ -63,6 +65,21 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
     if (err) return cb(err);
     cb(null, isMatch);
     //        👆 일치한다면 true
+  });
+};
+
+// jsonwebtoken을 이용해서 token을 생성하는 메소드
+userSchema.methods.generateToken = function (cb) {
+  const user = this;
+
+  //                👇 토큰을 만드는 메소드 (user._id와, 임의의 문자열을 인수로 토큰을 만듬)
+  const token = jwt.sign(user._id.toHexString(), 'secretToken');
+  //                              👆 plainObject가 와야한다는 오류가 떠서 붙여주었음
+
+  user.token = token;
+  user.save((err, user) => {
+    if (err) return cb(err);
+    cb(null, user);
   });
 };
 
