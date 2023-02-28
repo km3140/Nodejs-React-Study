@@ -72,7 +72,8 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
 userSchema.methods.generateToken = function (cb) {
   const user = this;
 
-  //                👇 토큰을 만드는 메소드 (user._id와, 임의의 문자열을 인수로 토큰을 만듬)
+  //                👇 토큰을 만드는 메소드 (user._id와, 임의의 문자열을 인수로 토큰을 만듬),
+  //                   추후 "secretToken"으로 jwt를 디코딩하여 user._id를 도출 가능
   const token = jwt.sign(user._id.toHexString(), 'secretToken');
   //                              👆 plainObject가 와야한다는 오류가 떠서 붙여주었음
 
@@ -80,6 +81,17 @@ userSchema.methods.generateToken = function (cb) {
   user.save((err, user) => {
     if (err) return cb(err);
     cb(null, user);
+  });
+};
+
+userSchema.statics.findByToken = function (token, cb) {
+  const user = this;
+
+  jwt.verify(token, 'secretToken', (err, decoded) => {
+    user.findOne({ _id: decoded, token: token }, (err, user) => {
+      if (err) return cb(err);
+      cb(null, user);
+    });
   });
 };
 
