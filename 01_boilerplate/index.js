@@ -22,7 +22,7 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-app.get('/api/user', (req, res) => {
+app.get('/api/users', (req, res) => {
   res.send('Hello World! 안녕하세요');
 });
 
@@ -40,7 +40,7 @@ app.post('/api/user/register', (req, res) => {
   });
 });
 
-app.post('/api/user/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
   // 요청받은 이메일이 데이터베이스에 있는지 찾는다
   User.findOne({ email: req.body.email }, (err, user) => {
     // 👆 몽고디비 내장함수, 해당하는 조건에 맞는 도큐먼트를 콜백함수 두번째 파라미터에 넣어줌
@@ -67,7 +67,7 @@ app.post('/api/user/login', (req, res) => {
   });
 });
 
-app.get('/api/user/auth', auth, (req, res) => {
+app.get('/api/users/auth', auth, (req, res) => {
   // return을 만나지 않고 여기까지 도달했으면 인증결과가 True라는 뜻
   res.status(200).json({
     _id: req.user._id,
@@ -78,6 +78,15 @@ app.get('/api/user/auth', auth, (req, res) => {
     lastname: req.user.lastname,
     role: req.user.role,
     image: req.user.image,
+  });
+});
+
+// 로그아웃 기능
+app.get('/api/users/logout', auth, (req, res) => {
+  //                                            👇 토큰을 지워줌
+  User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
   });
 });
 

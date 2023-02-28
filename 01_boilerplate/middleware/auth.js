@@ -1,11 +1,11 @@
 const { User } = require('../models/User');
 
 // 인증 처리를 하는 미들웨어
-const auth = (req, res) => {
+const auth = (req, res, next) => {
   // 👆 강사님이 여기에 let을 쓰신 이유를 모르겠다
 
   // 1. 클라이언트 쿠키에서 토큰을 가져온다
-  const token = req.token.x_auth;
+  const token = req.cookies.x_auth;
 
   // 2. 토큰을 복호화 한 후 그 결과로 나온 유저id를 유저DB에서 찾는다
   User.findByToken(token, (err, user) => {
@@ -20,4 +20,5 @@ const auth = (req, res) => {
 
   // 3. 유저가 있으면 인증 ok, 없으면 인증 no
 };
+
 module.exports = { auth };
