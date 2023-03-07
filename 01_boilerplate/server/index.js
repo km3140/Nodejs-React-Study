@@ -2,17 +2,17 @@
 const express = require('express');
 const app = express();
 const port = 5000;
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { User } = require('./models/User');
 const { mongoURI } = require('./config/key');
 const { auth } = require('./middleware/auth');
 
-// application/x-www-form-urlencoded 타입
-app.use(bodyParser.urlencoded({ extended: true }));
-// application/json 타입
-app.use(bodyParser.json());
+// application/x-www-form-urlencoded 타입 (bodyparser)
+app.use(express.urlencoded({ extended: true }));
+// application/json 타입 (bodyparser)
+app.use(express.json());
 // 쿠키 파싱
 app.use(cookieParser());
 
