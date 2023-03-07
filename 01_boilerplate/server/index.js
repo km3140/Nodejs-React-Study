@@ -1,7 +1,7 @@
 // 요청은 포스트맨을 사용하였음.
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 5000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -28,7 +28,7 @@ app.get('/api/users', (req, res) => {
 
 // axios test
 app.get('/api/hello', (req, res) => {
-  req.send('프론트 axios로부터 온 요청의 응답');
+  res.send('hello console');
 });
 
 // 회원 가입 할 때 필요한 정보를  client에서 가져오면 데이터베이스에 넣어줌
