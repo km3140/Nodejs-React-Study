@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer1 from './reducer1';
+import reducer from './reducer';
 
 const store = configureStore({
   // 👇combineReducer 역할을 해줌
   reducer: {
-    A: reducer1,
+    A: reducer,
     // B : reducer2
   },
 });
