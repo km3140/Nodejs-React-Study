@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 let initialState = {
-  email: '',
-  password: '',
+  loginSuccess: '',
 };
 
 const slice = createSlice({
@@ -9,9 +8,8 @@ const slice = createSlice({
   name: 'boilerplate',
   initialState,
   reducers: {
-    // 수정해야함
     loginUser(state, action) {
-      state.email = action.payload.email;
+      state.loginSuccess = action.payload.loginSuccess;
     },
   },
 });

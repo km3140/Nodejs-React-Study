@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunk } from '../../../_actions/user_action';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = props => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,20 +19,25 @@ const LoginPage = () => {
     setPassword(event.currentTarget.value);
   };
 
-  const onSubmitHandler = event => {
-    event.preventDefault();
+  const loginSuccess = useSelector(state => state.A.loginSuccess);
 
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const onSubmitHandler = async event => {
+    event.preventDefault();
 
     let body = {
       email: email,
       password: password,
     };
-
     console.log(body);
 
     dispatch(thunk.loginUser(body));
+
+    if (loginSuccess) {
+      navigate('/');
+      // 👆 로그인 성공 시 '/'경로로 보내기
+    } else {
+      alert('Error');
+    }
   };
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh' }}>
