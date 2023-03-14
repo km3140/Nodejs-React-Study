@@ -59,6 +59,7 @@ userSchema.pre('save', function (next) {
 });
 
 // 로그인 시 비밀번호 확인하는 메서드 정의
+//         👇 인스턴스에서 사용할 수 있는 메서드
 userSchema.methods.comparePassword = function (plainPassword, cb) {
   // plainPassword : abc123 === hashedPassword : $2b$10$DYJKKETYmjf0Q9HSa8R86eCU/Ana6H5PRmXKgW/vlsqNXDYQDhhte
   bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
@@ -84,6 +85,7 @@ userSchema.methods.generateToken = function (cb) {
   });
 };
 
+//         👇 모델 자체에서 사용할 수 있는 메서드
 userSchema.statics.findByToken = function (token, cb) {
   const user = this;
 
