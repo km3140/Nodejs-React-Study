@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunk } from '../../../_actions/user_action';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = props => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const loginSuccess = useSelector(state => state.A.loginSuccess);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +21,6 @@ const LoginPage = props => {
     setPassword(event.currentTarget.value);
   };
 
-  const loginSuccess = useSelector(state => state.A.loginSuccess);
-
   const onSubmitHandler = async event => {
     event.preventDefault();
 
@@ -30,15 +30,18 @@ const LoginPage = props => {
     };
     console.log(body);
 
-    dispatch(thunk.loginUser(body));
+    const res = await dispatch(thunk.loginUser(body));
+    const loginSuccess = res.loginSuccess;
 
     if (loginSuccess) {
+      alert('Login Success!');
       navigate('/');
       // 👆 로그인 성공 시 '/'경로로 보내기
     } else {
-      alert('Error');
+      alert('Failed to sign in');
     }
   };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh' }}>
       <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}>

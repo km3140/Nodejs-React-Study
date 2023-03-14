@@ -32,15 +32,16 @@ app.get('/api/hello', (req, res) => {
 });
 
 // 회원 가입 할 때 필요한 정보를  client에서 가져오면 데이터베이스에 넣어줌
-app.post('/api/user/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
   // 새로운 도큐먼트 생성?
   const user = new User(req.body);
 
   //   👇 mongodb 메서드, db에 저장
   user.save((err, userInfo) => {
-    if (err) return res.json({ success: false, err });
+    //             👆 result?
+    if (err) return res.json({ registerSuccess: false, err });
     return res.status(200).json({
-      success: true,
+      registerSuccess: true,
     });
   });
 });
