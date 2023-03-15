@@ -2,8 +2,6 @@ const { User } = require('../models/User');
 
 // 인증 처리를 하는 미들웨어
 const auth = (req, res, next) => {
-  // 👆 강사님이 여기에 let을 쓰신 이유를 모르겠다
-
   // 1. 클라이언트 쿠키에서 토큰을 가져온다
   const token = req.cookies.x_auth;
 
