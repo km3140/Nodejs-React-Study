@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { actions } from '../_reducers/reducer';
 
-function loginUser(dataToSubmit) {
+const loginUser = dataToSubmit => {
   // 👇 thunk미들웨어는 함수를 리턴
   return async (dispatch, getState) => {
     //                      👆 현재 state 정보를 받아볼 수 있음
@@ -12,9 +12,9 @@ function loginUser(dataToSubmit) {
     dispatch(actions.loginUser(request));
     return request;
   };
-}
+};
 
-function registerUser(dataToSubmit) {
+const registerUser = dataToSubmit => {
   return async (dispatch, getState) => {
     const res = await axios.post('/api/users/register', dataToSubmit);
     const request = res.data;
@@ -22,7 +22,17 @@ function registerUser(dataToSubmit) {
     dispatch(actions.registerUser(request));
     return request;
   };
-}
+};
 
-export const thunk = { loginUser, registerUser };
+const authUser = () => {
+  return async (dispatch, getState) => {
+    const res = await axios.get('/api/users/auth');
+    const request = res.data;
+
+    dispatch(actions.authUser(request));
+    return request;
+  };
+};
+
+export const thunk = { loginUser, registerUser, authUser };
 //           👆 컴포넌트 파일에서 dispatch의 인자로 사용할

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 let initialState = {
   loginSuccess: '',
   registerSuccess: '',
+  userData: '',
 };
 
 const slice = createSlice({
@@ -10,10 +11,13 @@ const slice = createSlice({
   initialState,
   reducers: {
     loginUser(state, action) {
-      state.loginSuccess = action.payload.loginSuccess;
+      state.loginSuccess = action.payload;
     },
     registerUser(state, action) {
       state.registerSuccess = action.payload.registerSuccess;
+    },
+    authUser(state, action) {
+      state.userData = action.payload;
     },
   },
 });
