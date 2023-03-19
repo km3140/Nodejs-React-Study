@@ -8,17 +8,41 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { thunk } from '../_actions/user_action';
+import { useNavigate } from 'react-router-dom';
+
 //                👇 래핑 당할 컴포넌트    👇 어드민 페이지인지에 대한 bool
 const Auth = (SpecificComponent, option, adminRoute = null) => {
   //                              👆 null : 아무나 출입이 가능한 페이지
   //                                 true : 로그인한 유저만 출입 가능한 페이지
   //                                 false : 로그인한 유저는 출입 불가능한 페이지
+
   const AuthenticationCheck = props => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-      dispatch(thunk.authUser()).then(res => console.log(res));
-    }, []);
+      dispatch(thunk.authUser()).then(res => {
+        console.log(res);
+
+        // 로그인 안 한 상태
+        if (!res.isAuth) {
+          if (option) {
+            alert('login plz');
+            navigate('/login');
+          }
+          // 로그인 한 상태
+        } else if (res.isAuth) {
+          if (!option) {
+            alert('You are already loginned');
+            navigate('/');
+          } else if (adminRoute && !res.isAdmin) {
+            alert('You are not admin');
+            navigate('/');
+          }
+        }
+      });
+    }, [dispatch, navigate]);
+    //  👆 eslint에서 경고 띄워서 넣어줌
 
     return <SpecificComponent />;
   };
