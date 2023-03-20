@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { thunk } from '../../../_actions/user_action';
 import { useNavigate } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const registerSuccess = useSelector(state => state.A.registerSuccess);
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -52,35 +49,13 @@ const RegisterPage = () => {
 
     if (registerSuccess) {
       alert('Register Success!');
-      navigate('/register');
+      navigate('/');
       // 👆 로그인 성공 시 '/'경로로 보내기
     } else {
       alert('Failed to sign up');
     }
   };
 
-  // return (
-  //   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh' }}>
-  //     <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}>
-  //       <label>Email</label>
-  //       <input type="email" value={email} onChange={onEmailHandler} />
-
-  //       <label>Name</label>
-  //       <input type="text" value={name} onChange={onNameHandler} />
-
-  //       <label>Password</label>
-  //       <input type="password" value={password} onChange={onPasswordHandler} />
-
-  //       <label>Confirm Password</label>
-  //       <input type="password" value={confirmPassword} onChange={onConfirmPasswordHandler} />
-
-  //       <br />
-  //       <button>Register</button>
-  //     </form>
-  //   </div>
-  // );
-
-  // 이름 컨트롤아이디 뭘로해야함?
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh' }}>
       <Form onSubmit={onSubmitHandler}>
@@ -90,9 +65,9 @@ const RegisterPage = () => {
           <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" value={name} onChange={onNameHandler} placeholder="Password" />
+          <Form.Control type="text" value={name} onChange={onNameHandler} placeholder="Name" />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">

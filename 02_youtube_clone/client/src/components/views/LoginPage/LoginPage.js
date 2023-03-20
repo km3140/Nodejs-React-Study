@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunk } from '../../../_actions/user_action';
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -44,14 +46,22 @@ const LoginPage = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh' }}>
-      <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}>
-        <label>Email</label>
-        <input type="email" value={email} onChange={onEmailHandler} />
-        <label>Password</label>
-        <input type="password" value={password} onChange={onPasswordHandler} />
-        <br />
-        <button>Login</button>
-      </form>
+      <Form onSubmit={onSubmitHandler}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" value={email} onChange={onEmailHandler} placeholder="Enter email" />
+          <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" value={password} onChange={onPasswordHandler} placeholder="Password" />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </div>
   );
 };
