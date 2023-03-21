@@ -40,9 +40,9 @@ function NavBar() {
   };
 
   return (
-    <Navbar bg="white" expand="lg">
+    <Navbar expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/" style={{ padding: '0 1rem' }}>
           <img
             alt=""
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/2560px-YouTube_full-color_icon_%282017%29.svg.png"
