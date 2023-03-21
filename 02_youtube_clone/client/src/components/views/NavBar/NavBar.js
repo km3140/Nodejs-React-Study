@@ -40,7 +40,7 @@ function NavBar() {
   };
 
   return (
-    <Navbar expand="lg">
+    <Navbar expand="lg" style={{ boxShadow: '1px 1px 2px lightgray' }}>
       <Container fluid>
         <Navbar.Brand href="/" style={{ padding: '0 1rem' }}>
           <img

@@ -37,6 +37,8 @@ const VideoUploadPage = () => {
     setCategory(e.currentTarget.value);
   };
 
+  const onDrop = files => {};
+
   return (
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -45,7 +47,7 @@ const VideoUploadPage = () => {
 
       <Form>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Dropzone onDrop multiple maxSize={800000000}>
+          <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
             {({ getRootProps, getInputProps }) => (
               <div
                 style={{
@@ -91,7 +93,7 @@ const VideoUploadPage = () => {
         </select>
         <br />
         <br />
-        <select onChange={onCategoryChange}>
+        <select val onChange={onCategoryChange}>
           {categoryOptions.map((item, index) => (
             <option key={index} value={item.value}>
               {item.label}
