@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
   const isAuth = useSelector(state => state.A.userData.isAuth);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const onLogoutHandler = async () => {
     const res = await axios.get('/api/users/logout');
@@ -53,7 +53,7 @@ function NavBar() {
           MeTube
         </Navbar.Brand>
         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }}>
-          <Nav.Link href="/">Video</Nav.Link>
+          <Nav.Link href="/video/upload">Video</Nav.Link>
           <Nav.Link href="/">Subscription</Nav.Link>
         </Nav>
         {loginOutButtonHandler()}

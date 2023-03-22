@@ -1,8 +1,7 @@
-// 요청은 포스트맨을 사용하였음.
 const express = require('express');
 const app = express();
 const port = 5000;
-// const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser'); 👈 express에 내장됨
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { User } = require('./models/User');

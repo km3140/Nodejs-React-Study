@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const opennessOptions = [
   { value: 0, label: 'Private' },
@@ -37,7 +38,17 @@ const VideoUploadPage = () => {
     setCategory(e.currentTarget.value);
   };
 
-  const onDrop = files => {};
+  const onDrop = files => {
+    let formData = new FormData();
+    const config = {
+      header: { 'content-type': 'multipart/form-data' },
+    };
+    formData.append('file', files[0]);
+
+    console.log(files);
+
+    // axios.post('/api/video/uploadfiles')
+  };
 
   return (
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
@@ -47,6 +58,7 @@ const VideoUploadPage = () => {
 
       <Form>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/*                        👇 여러개의 파일을 올릴 것인지에 대한 옵션 */}
           <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
             {({ getRootProps, getInputProps }) => (
               <div
@@ -93,7 +105,7 @@ const VideoUploadPage = () => {
         </select>
         <br />
         <br />
-        <select val onChange={onCategoryChange}>
+        <select onChange={onCategoryChange}>
           {categoryOptions.map((item, index) => (
             <option key={index} value={item.value}>
               {item.label}
