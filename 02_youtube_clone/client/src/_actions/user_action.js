@@ -2,6 +2,9 @@
 import axios from 'axios';
 import { actions } from '../_reducers/reducer';
 
+axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.withCredentials = true;
+
 const loginUser = dataToSubmit => {
   // 👇 thunk미들웨어는 함수를 리턴
   return async (dispatch, getState) => {

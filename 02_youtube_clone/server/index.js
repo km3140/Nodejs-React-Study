@@ -1,18 +1,16 @@
 const express = require('express');
 const app = express();
 const port = 5000;
-// const bodyParser = require('body-parser'); 👈 express에 내장됨
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { User } = require('./models/User');
 const { mongoURI } = require('./config/key');
 const { auth } = require('./middleware/auth');
+const cors = require('cors');
 
-// application/x-www-form-urlencoded 타입 (bodyparser)
+app.use(cors({ origin: 'http://localhost:3000', credentials: 'true' }));
 app.use(express.urlencoded({ extended: true }));
-// application/json 타입 (bodyparser)
 app.use(express.json());
-// 쿠키 파싱
 app.use(cookieParser());
 
 mongoose.set('strictQuery', true);

@@ -9,11 +9,15 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import Auth from './hoc/Auth';
 import VideoUploadPage from './components/views/VideoUploadPage/VideoUploadPage';
 import NavBar from './components/views/NavBar/NavBar';
+import axios from 'axios';
 
 const AuthedLandingPage = Auth(LandingPage, null);
 const AuthedLoginPage = Auth(LoginPage, false);
 const AuthedRegisterPage = Auth(RegisterPage, false);
 const AuthedVideoUploadPage = Auth(VideoUploadPage, true);
+
+axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

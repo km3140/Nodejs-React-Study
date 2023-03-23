@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
+  axios.defaults.baseURL = 'http://localhost:5000';
+  axios.defaults.withCredentials = true;
+
   const isAuth = useSelector(state => state.A.userData.isAuth);
   const navigate = useNavigate();
 

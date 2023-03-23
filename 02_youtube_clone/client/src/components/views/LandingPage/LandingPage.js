@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const LandingPage = () => {
+  axios.defaults.baseURL = 'http://localhost:5000';
+
   const navigate = useNavigate();
 
   const isAuth = useSelector(state => state.A.userData.isAuth);
 
   useEffect(() => {
-    // 👇 엔드포인트 '/api/hello'로 get 요청을 보냄 -> 받은 data를 console.log
+    // 👇 엔드포인트 'http://localhost:5000/api/hello'로 get 요청을 보냄 -> 받은 data를 console.log
     axios.get('/api/hello').then(res => console.log(res.data));
   }, []);
 
