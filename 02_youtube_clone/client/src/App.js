@@ -16,10 +16,9 @@ const AuthedLoginPage = Auth(LoginPage, false);
 const AuthedRegisterPage = Auth(RegisterPage, false);
 const AuthedVideoUploadPage = Auth(VideoUploadPage, true);
 
-axios.defaults.baseURL = 'http://localhost:5000';
-axios.defaults.withCredentials = true;
-
 function App() {
+  axios.defaults.baseURL = 'http://localhost:5000';
+  axios.defaults.withCredentials = true;
   return (
     // 👇 안쪽 태그들이 렌더링 될 때 까지 fallback 안의 요소를 보여준다
     <Suspense fallback={<div>Loading...</div>}>

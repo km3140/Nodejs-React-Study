@@ -7,9 +7,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
-  axios.defaults.baseURL = 'http://localhost:5000';
-  axios.defaults.withCredentials = true;
-
   const isAuth = useSelector(state => state.A.userData.isAuth);
   const navigate = useNavigate();
 
@@ -27,14 +24,20 @@ function NavBar() {
   const loginOutButtonHandler = () => {
     if (isAuth === true) {
       return (
-        <Nav className=" my-2 my-lg-0" style={{ maxHeight: '100px' }}>
+        <Nav
+          className=" my-2 my-lg-0"
+          style={{ maxHeight: '100px', display: 'flex', flexDirection: 'row', gap: '0.5rem' }}
+        >
           <Nav.Link onClick={onLogoutHandler}>Logout</Nav.Link>
         </Nav>
       );
     }
     if (isAuth === false) {
       return (
-        <Nav className=" my-2 my-lg-0" style={{ maxHeight: '100px' }}>
+        <Nav
+          className=" my-2 my-lg-0"
+          style={{ maxHeight: '100px', display: 'flex', flexDirection: 'row', gap: '0.5rem' }}
+        >
           <Nav.Link href="/login">Signin</Nav.Link>
           <Nav.Link href="/register">Signup</Nav.Link>
         </Nav>
@@ -55,7 +58,10 @@ function NavBar() {
           />{' '}
           MeTube
         </Navbar.Brand>
-        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }}>
+        <Nav
+          className="me-auto my-2 my-lg-0"
+          style={{ maxHeight: '100px', display: 'flex', flexDirection: 'row', gap: '1rem' }}
+        >
           <Nav.Link href="/video/upload">Video</Nav.Link>
           <Nav.Link href="/">Subscription</Nav.Link>
         </Nav>

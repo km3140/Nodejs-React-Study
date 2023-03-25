@@ -8,7 +8,20 @@ const { mongoURI } = require('./config/key');
 const { auth } = require('./middleware/auth');
 const cors = require('cors');
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: 'true' }));
+const whitelist = ['http://localhost:3000'];
+const corsOptions = {
+  credentials: true, // 👈 credentials: 'true', credential: true 처럼 하면 오류남..
+  origin: (origin, callback) => {
+    // whitelist 배열에 해당 origin이 있다면
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true); // cors 허용
+    } else {
+      callback(new Error('Not Allowed Origin!'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
